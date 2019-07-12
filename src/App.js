@@ -1,8 +1,11 @@
 import React from 'react';
+import { Router, Route } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './store';
+import history from './History';
 
-import logo from './logo.svg';
+import SearchForm from './components/SearchForm';
+
 import './App.css';
 
 import Posts from './components/Posts';
@@ -11,25 +14,19 @@ import PostForm from './components/PostForm';
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <PostForm />
-        <hr />
-        <Posts />
-      </div>
+        <Router history={history}>
+          <div className="App">
+              <Route path='/postForm/:id' component={PostForm} />
+              <Route exact path='/' render= {props => (
+                  <React.Fragment>
+                      <SearchForm />
+                      <hr />
+                      <Posts />
+                  </React.Fragment>
+              )} />
+            <hr />
+          </div>
+        </Router>
     </Provider>
   );
 }

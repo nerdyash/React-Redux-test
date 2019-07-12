@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import history from '../History';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postAction';
-// import axios from 'axios';
+
+import {withRouter} from "react-router";
 
 class Posts extends Component {
     constructor(props) {
@@ -14,9 +16,6 @@ class Posts extends Component {
     
     componentWillMount() {
         this.props.fetchPosts();
-    // Moving this into the action to work with Redux
-    //     axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-    //         .then(res => this.setState({posts: res.data}));
     }
 
     componentWillReceiveProps(newProps) {
@@ -24,19 +23,20 @@ class Posts extends Component {
             this.props.posts.unshift(newProps.newPost);
         }
     }
+    updatePost(post) {
+        const updatPost = {};
+        history.push('/postForm/'+post.id, {updatePost: post})
+        this.setState({title: history.location.state.updatePost.title});
+        this.setState({body: history.location.state.updatePost.body});
+        console.log("history : ", history.location.state.updatePost)
+    }
 
     render() {
-        // Commenting because we don't need it for redux
-        // const postData = this.state.posts.map(post => (
-        //     <div key={post.id}>
-        //         <h2>{post.title}</h2>
-        //         <p>{post.body}</p>
-        //     </div>
-        // ));
         const postData = this.props.posts.map(post => (
             <div key={post.id}>
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
+                <button type='submit' className='btn' onClick={this.updatePost.bind(this, post)}>Edit</button>
             </div>
         ));
         return (
@@ -56,7 +56,7 @@ Posts.propTypes = {
 
 const mapStateToProps = state => ({
     posts: state.posts.items,
-    newPost: state.posts.item.post
+    // newPost: state.posts.item.post,
 })
 
-export default connect(mapStateToProps, { fetchPosts })(Posts);
+export default withRouter(connect(mapStateToProps, { fetchPosts })(Posts));
