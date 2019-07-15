@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.MuiFormControl-root {
+  width: 100%;
+  margin-bottom: 10px !important;
+}
+
+.MuiPaper-root {
+  padding: 10px;
+  margin-bottom: 10px;
+}

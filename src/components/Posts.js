@@ -4,6 +4,11 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/postAction';
 
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 import {withRouter} from "react-router";
 
 class Posts extends Component {
@@ -28,20 +33,33 @@ class Posts extends Component {
             search: e.target.value
         })
     }
+
     render() {
         let updatedPosts = this.props.posts.filter((val) => {
             return val.title.toLowerCase().indexOf(this.state.search) !== -1;
         });
         const postData = updatedPosts.map(post => (
-            <div key={post.id}>
-                <h2>{post.title}</h2>
-                <p>{post.body}</p>
-                <button type='submit' className='btn' onClick={this.updatePost.bind(this, post)}>Edit</button>
-            </div>
+
+                <Paper key={post.id}>
+                    <Typography variant="h5" component="h3">
+                        {post.title}
+                    </Typography>
+                    <Typography component="p">
+                        {post.body}
+                    </Typography>
+                    <Button color='secondary' onClick={this.updatePost.bind(this, post)}>Edit</Button>
+                </Paper>
+
         ));
         return (
             <React.Fragment>
-                <input name='search' onChange={this.onChange.bind(this)} placeholder=''/>
+                <h2>Search Posts : </h2>
+                <TextField
+                    id="standard-dense"
+                    label="Search"
+                    placeholder='Search the posts...'
+                    onChange={this.onChange.bind(this)}
+                />
                 <h1>Posts</h1>
                 {postData}
             </React.Fragment>

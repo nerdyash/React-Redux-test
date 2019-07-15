@@ -4,6 +4,12 @@ import history from '../History';
 import { connect } from 'react-redux';
 import { updatePost } from '../actions/postAction';
 
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
 class PostForm extends Component {
     constructor(props) {
         super(props);
@@ -39,16 +45,39 @@ class PostForm extends Component {
         return (
             <div>
                 <h2>Edit Post</h2>
-                <form onSubmit={this.submit}>
-                    <div>
-                        <label>Title :</label> <br />
-                        <input name='title' onChange={this.change} value={this.state.title} />
-                    </div> <br />
-                    <div>
-                        <label>Post :</label> <br />
-                        <textarea name='body' onChange={this.change} value={this.state.body} />
-                    </div> <br />
-                    <button type="submit" className='btn'>Submit</button>
+                <form onSubmit={this.submit} noValidate autoComplete="off">
+                    <FormControl>
+                        <Input
+                            id="adornment-title"
+                            value={this.state.title}
+                            onChange={this.change}
+                            aria-describedby="title"
+                            type='text'
+                            name='title'
+                            placeholder='Title'
+                        />
+                        <FormHelperText id="weight-helper-text">Title</FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                        <Input
+                            id="adornment-body"
+                            value={this.state.body}
+                            onChange={this.change}
+                            aria-describedby="body"
+                            type='text'
+                            name='body'
+                            placeholder='Post'
+                            multiline
+                        />
+                        <FormHelperText id="weight-helper-text">Post</FormHelperText>
+                    </FormControl>
+
+                    <Button variant="contained" color="primary" type='submit'>
+                        Save
+                        <SaveIcon />
+                    </Button>
+
+
                 </form>
             </div>
         )
@@ -56,7 +85,6 @@ class PostForm extends Component {
 }
 
 PostForm.propTypes = {
-    createPost: propTypes.func.isRequired,
     post: propTypes.object.isRequired
 }
 

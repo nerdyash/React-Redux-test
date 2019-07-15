@@ -20,7 +20,6 @@ function App() {
                       <Posts />
                   </React.Fragment>
               )} />
-            <hr />
           </div>
         </Router>
     </Provider>
