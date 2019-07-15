@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 import history from './History';
 
-import SearchForm from './components/SearchForm';
-
 import './App.css';
 
 import Posts from './components/Posts';
@@ -19,8 +17,6 @@ function App() {
               <Route path='/postForm/:id' component={PostForm} />
               <Route exact path='/' render= {props => (
                   <React.Fragment>
-                      <SearchForm />
-                      <hr />
                       <Posts />
                   </React.Fragment>
               )} />

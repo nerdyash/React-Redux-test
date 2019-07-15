@@ -2,22 +2,17 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import history from '../History';
 import { connect } from 'react-redux';
-import { createPost, updatePost } from '../actions/postAction';
-import axios from 'axios';
-// import Posts from './Posts';
-import uuid from 'uuid';
+import { updatePost } from '../actions/postAction';
 
 class PostForm extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             userId: props.post ? props.post.userId : null,
             id: props.post ? props.post.id : null,
             title: props.post ? props.post.title : '',
             body: props.post ? props.post.body : ''
         }
-        console.log("state : ", this.state)
         this.change = this.change.bind(this);
         this.submit = this.submit.bind(this);
     }
@@ -65,12 +60,8 @@ PostForm.propTypes = {
     post: propTypes.object.isRequired
 }
 
-// const mapStateToProps = (state, props) => ({
-//     post: state.posts.item
-// });
 
 function mapStateToProps(state, props) {
-    console.log(props);
     if(props.match.params.id) {
         return {
             post: props.location.state.updatePost
@@ -79,4 +70,4 @@ function mapStateToProps(state, props) {
     return { post: null};
 }
 
-export default connect(mapStateToProps, { createPost, updatePost })(PostForm);
+export default connect(mapStateToProps, { updatePost })(PostForm);
