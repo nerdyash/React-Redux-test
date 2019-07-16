@@ -1,3 +1,9 @@
+// PostForm.js
+//
+// This file is showing populated Edit form.
+//
+// On submit of the form it's updating the state of the indended item.
+
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import history from '../History';
@@ -26,6 +32,7 @@ class PostForm extends Component {
     change(e) {
         this.setState({[e.target.name]: e.target.value});
     }
+    // Updating the post and storing the value in the redux store
     submit(e) {
         e.preventDefault();
         const { userId, id, title, body } = this.state;

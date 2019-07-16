@@ -1,3 +1,10 @@
+// Post.js
+//
+// This file is showing the posts from the API, searching the posts through search box
+//
+// and also showing the auto-complete suggestions
+
+
 import React, { Component } from 'react';
 import history from '../History';
 import propTypes from 'prop-types';
@@ -18,16 +25,15 @@ class Posts extends Component {
             suggestions: []
         }
     }
+    // fetching the posts through redux
     componentWillMount() {
         this.props.fetchPosts();
     }
+    // routing the post to edit form
     updatePost(post) {
-        const updatPost = {};
         history.push('/postForm/'+post.id, {updatePost: post})
-        this.setState({title: history.location.state.updatePost.title});
-        this.setState({body: history.location.state.updatePost.body});
     }
-
+    // on change of the value from search box filtering posts and auto-complete
     onChange(e) {
         let value = e.target.value;
         const div = document.querySelector('.suggestions');
@@ -40,7 +46,7 @@ class Posts extends Component {
             div.classList.remove('hide');
         }
     }
-
+    // on click of auto-complete showing intended post to the user
     onClick(post) {
         document.getElementById('standard-dense').setAttribute('value',post.title);
         document.querySelector('.suggestions').classList.add('hide');
@@ -50,10 +56,11 @@ class Posts extends Component {
     }
 
     render() {
+        // Filtering the posts
         let updatedPosts = this.props.posts.filter((val) => {
             return val.title.toLowerCase().indexOf(this.state.search) !== -1;
         });
-
+        // Suggested posts for auto-complete
         const suggested = updatedPosts.slice(0, 5).map(post => (
             <TextField
                 disabled
@@ -62,7 +69,7 @@ class Posts extends Component {
                 onClick={this.onClick.bind(this, post)}
             />
         ));
-
+        // Posts
         const postData = updatedPosts.map(post => (
             <Paper key={post.id}>
                 <Typography variant="h5" component="h3">

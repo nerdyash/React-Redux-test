@@ -10,7 +10,6 @@ const initState = {
 export default function(state = initState, action) {
     switch(action.type) {
         case FETCH_POSTS:
-            // console.log('reducer : ' ,action.payload)
             return {
                 ...state,
                 items: action.payload

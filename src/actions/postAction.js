@@ -1,6 +1,7 @@
 import { FETCH_POSTS, UPDATE_POST } from './types';
 import axios from 'axios';
 
+// Fetching the posts
 export function fetchPosts() {
     return function(dispatch) {
         axios.get('https://jsonplaceholder.typicode.com/posts')
@@ -10,7 +11,7 @@ export function fetchPosts() {
             }));
     }
 }
-
+// Updating the Posts
 export function updatePost(data) {
     return function(dispatch) {
         fetch('https://jsonplaceholder.typicode.com/posts/' + data.id, {
