@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://nerdyash.github.io/React-Redux-Example",
   "dependencies": {
+    "@material-ui/core": "^4.2.0",
+    "@material-ui/icons": "^4.2.1",
     "axios": "^0.19.0",
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",

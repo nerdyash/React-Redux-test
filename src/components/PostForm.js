@@ -36,8 +36,6 @@ class PostForm extends Component {
         }
         if(id) {
             this.props.updatePost({userId, id, title, body});
-        } else {
-            this.props.createPost(post);
         }
         history.push('/');
     }
