@@ -66,6 +66,7 @@ class Posts extends Component {
                 disabled
                 id="standard-disabled"
                 value={post.title}
+                key={post.id}
                 onClick={this.onClick.bind(this, post)}
             />
         ));
@@ -78,7 +79,7 @@ class Posts extends Component {
                 <Typography component="p">
                     {post.body}
                 </Typography>
-                <Button color='secondary' onClick={this.updatePost.bind(this, post)}>Edit</Button>
+                <Button color='secondary' className='editButton' onClick={this.updatePost.bind(this, post)}>Edit</Button>
             </Paper>
         ));
 
