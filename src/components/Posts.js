@@ -21,8 +21,7 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: '',
-            suggestions: []
+            search: ''
         }
     }
     // fetching the posts through redux

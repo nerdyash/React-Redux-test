@@ -1,4 +1,4 @@
-import { FETCH_POSTS, UPDATE_POST } from '../actions/types';
+import { FETCH_POSTS, UPDATE_POST, FETCH_POST } from '../actions/types';
 
 const initState = {
     items: [],
@@ -17,15 +17,16 @@ export default function(state = initState, action) {
         case UPDATE_POST:
             const index = state.items.findIndex(item => item.id === action.payload.id);
             if(index > -1) {
-                state.items[index] = action.payload;
-                return {
-                    ...state
-                }
-            } else {
                 return {
                     ...state,
-                    updateItem: action.payload
+                    items: state.items.map(item => {
+                        if(item.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return item;
+                    })
                 }
+
             }
         default:
             return state;

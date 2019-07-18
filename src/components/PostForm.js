@@ -19,15 +19,17 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 class PostForm extends Component {
     constructor(props) {
         super(props);
+        let post = props.location.state.updatePost;
         this.state = {
-            userId: props.post ? props.post.userId : null,
-            id: props.post ? props.post.id : null,
-            title: props.post ? props.post.title : '',
-            body: props.post ? props.post.body : ''
+            userId: post ? post.userId : null,
+            id: post ? post.id : null,
+            title: post ? post.title : '',
+            body: post ? post.body : ''
         }
         this.change = this.change.bind(this);
         this.submit = this.submit.bind(this);
     }
+
     // on change update the state value
     change(e) {
         this.setState({[e.target.name]: e.target.value});
@@ -44,7 +46,8 @@ class PostForm extends Component {
         if(id) {
             this.props.updatePost({userId, id, title, body});
         }
-        history.push('/');
+        this.setState({title: title, body: body})
+        history.push('/', this.props.posts);
     }
     render() {
         return (
@@ -93,14 +96,8 @@ PostForm.propTypes = {
     post: propTypes.object.isRequired
 }
 
-
-function mapStateToProps(state, props) {
-    if(props.match.params.id) {
-        return {
-            post: props.location.state.updatePost
-        }
-    }
-    return { post: null};
-}
+const mapStateToProps = (state) => ({
+    post: state.posts.item
+})
 
 export default connect(mapStateToProps, { updatePost })(PostForm);
