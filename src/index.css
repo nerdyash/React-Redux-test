@@ -29,3 +29,7 @@ code {
 .show {
   display: block;
 }
+
+.MuiListItem-button {
+  padding: 0 !important;
+}

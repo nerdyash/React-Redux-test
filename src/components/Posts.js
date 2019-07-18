@@ -17,6 +17,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+
+
 class Posts extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +32,9 @@ class Posts extends Component {
     }
     // fetching the posts through redux
     componentWillMount() {
-        this.props.fetchPosts();
+        if(this.props.posts.length < 1) {
+            this.props.fetchPosts();
+        }
     }
     // routing the post to edit form
     updatePost(post) {
@@ -61,13 +69,12 @@ class Posts extends Component {
         });
         // Suggested posts for auto-complete
         const suggested = updatedPosts.slice(0, 5).map(post => (
-            <TextField
-                disabled
-                id="standard-disabled"
-                value={post.title}
-                key={post.id}
-                onClick={this.onClick.bind(this, post)}
-            />
+            <React.Fragment>
+                <ListItem button>
+                    <ListItemText primary={post.title} key={post.id} onClick={this.onClick.bind(this, post)} />
+                </ListItem>
+                <Divider />
+            </React.Fragment>
         ));
         // Posts
         const postData = updatedPosts.map(post => (
@@ -93,7 +100,7 @@ class Posts extends Component {
                     onChange={this.onChange.bind(this)}
                     value={this.state.search}
                 />
-                <div className='suggestions hide'>{suggested}</div>
+                <div className='suggestions hide'><List component="nav" aria-label="Mailbox folders">{suggested}</List></div>
                 <h1>Posts</h1>
                 {postData}
             </React.Fragment>
